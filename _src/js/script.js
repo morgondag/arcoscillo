@@ -116,13 +116,13 @@ function updateOscillatorFreq() {
  * @return {String}
  */
 function getColor() {
-    if (volume > 50 && volume <= 100) {
+    if (volume > 100 && volume <= 250) {
         // Green
         return '#0F9D58';
-    } else if (volume > 100 && volume <= 150){
+    } else if (volume > 250 && volume <= 350){
         // Yellow
         return '#F4B400';
-    } else if (volume > 150) {
+    } else if (volume > 350) {
         // Red
         return '#DB4437';
     } else {
