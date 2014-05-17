@@ -1,0 +1,39 @@
+button {
+	background: transparent;
+	border: 1px solid;
+	border-radius: 3px;
+	color: #FFF;
+	margin: 0 5px;
+	outline: 0;
+	padding: 10px;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	-webkit-font-smoothing: antialiased;
+	font-weight: 700;
+
+	&:hover {
+		cursor: pointer;
+	}
+
+	&:focus {
+		background: #FFF;
+		color: #4285F8;
+	}
+}
+
+aside {
+	background: #4285F8;
+	padding: 10px 0;
+	text-align: center;
+}
+
+a {
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
+	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+	font-size: 12px;
+	-webkit-font-smoothing: antialiased;
+	color: #999;
+}
