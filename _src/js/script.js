@@ -3,10 +3,15 @@
  */
 var audioContext;
 var canvasContext;
+var mediaStreamSource;
 var meter;
 var oscillator;
 var oscillatorContext;
 var volume;
+var cacheWaveType;
+
+var isOscillatorOn = false;
+var isAllowed = false;
 
 var body = document.body;
 var html = document.documentElement;
@@ -52,8 +57,15 @@ function createOscillator() {
     oscillator = oscillatorContext.createOscillator();
 
     oscillator.connect(oscillatorContext.destination);
+
+    if (cacheWaveType) {
+        oscillator.type = cacheWaveType;
+    }
+
     oscillator.frequency.value = 0;
     oscillator.start(0);
+
+    isOscillatorOn = true;
 }
 
 /**
@@ -70,10 +82,12 @@ function getUserMedia() {
  * @param  {[type]} stream
  */
 function createMediaStreamSource(stream) {
+    isAllowed = true;
+
     window.AudioContext = window.AudioContext || window.webkitAudioContext || window.mozAudioContext || window.msAudioContext;
     audioContext = new AudioContext();
 
-    var mediaStreamSource = audioContext.createMediaStreamSource(stream);
+    mediaStreamSource = audioContext.createMediaStreamSource(stream);
 
     meter = createAudioMeter(audioContext);
     mediaStreamSource.connect(meter);
@@ -132,11 +146,62 @@ function getColor() {
 }
 
 /**
+ * [toggleActiveClass description]
+ * @param  {[type]} element [description]
+ * @return {[type]}         [description]
+ */
+function toggleActiveClass(element, toggleWaveType) {
+    if (toggleWaveType) {
+        var waveType = document.querySelectorAll('.wave-type.active');
+        waveType[0].classList.toggle('active');
+    }
+
+    if (element.classList) {
+        element.classList.toggle('active');
+    } else {
+        var classes = element.className.split(' ');
+        var existingIndex = classes.indexOf('active');
+        
+        if (existingIndex >= 0) {
+            classes.splice(existingIndex, 1);            
+        } else {
+            classes.push('active');
+        }
+
+        element.className = classes.join(' ');
+    }
+} 
+
+/**
  * Change oscillator wave type
  * @param  {Event} event
  */
 function changeWaveType(event) {
-    oscillator.type = JSON.parse(event.target.value);
+    if (typeof oscillator == 'undefined') return;
+    toggleActiveClass(event.target, true);
+
+    cacheWaveType = JSON.parse(event.target.value)
+
+    oscillator.type = cacheWaveType;
 }
 
-init();
+/**
+ * [changeMediaSource description]
+ * @param  {[type]} event [description]
+ * @return {[type]}       [description]
+ */
+function toggleMediaSource(event) {
+    toggleActiveClass(event.target, false);
+
+    if (isOscillatorOn) {
+        oscillator.stop(0);
+        mediaStreamSource.disconnect();
+        isOscillatorOn = false;
+    } else if (isAllowed){
+        createOscillator();
+        mediaStreamSource.connect(meter);
+        isOscillatorOn = true;
+    } else {
+        init();
+    }
+}

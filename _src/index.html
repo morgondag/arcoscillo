@@ -9,13 +9,14 @@
 </head>
 <body>
 	<nav>
-		<button value="0" onclick="changeWaveType(event)">Sine wave</button>
-		<button value="1" onclick="changeWaveType(event)">Square wave</button>
-		<button value="2" onclick="changeWaveType(event)">Sawtooth wave</button>
-		<button value="3" onclick="changeWaveType(event)">Triangle wave</button>
+		<button class="media-source" value="audio" onclick="toggleMediaSource(event)">Audio</button>
+		<button class="wave-type active" value="0" onclick="changeWaveType(event)">Sine wave</button>
+		<button class="wave-type" value="1" onclick="changeWaveType(event)">Square wave</button>
+		<button class="wave-type" value="2" onclick="changeWaveType(event)">Sawtooth wave</button>
+		<button class="wave-type" value="3" onclick="changeWaveType(event)">Triangle wave</button>
 	</nav>
 	
-	<a href="https://github.com/karlerikjonatan/arcoscillo">Arcoscillo v1.0.0</a>
+	<a href="https://github.com/karlerikjonatan/arcoscillo"><img src="GitHub-Mark-32px.png" alt="GitHub"/></a>
 
 	<canvas id="canvas" height="0" width="0"></canvas>
 

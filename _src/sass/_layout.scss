@@ -15,10 +15,32 @@ button {
 	&:hover {
 		cursor: pointer;
 	}
+}
 
-	&:focus {
-		background: #FFF;
-		color: #4285F8;
+.active {
+	background: #FFF;
+	color: #4285F8;
+}
+
+.media-source {
+	margin-right: 100px;
+	position: relative;
+
+	&:before {
+		background: #DB4437;
+		border-radius: 50%;
+		content: '';
+		height: 10px;
+		width: 10px;
+		position: absolute;
+		top: 11px;
+		left: -30px;
+	}
+}
+
+.media-source.active {
+	&:before {
+		background: #F4B400;
 	}
 }
 
@@ -35,5 +57,5 @@ a {
 	font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 	font-size: 12px;
 	-webkit-font-smoothing: antialiased;
-	color: #999;
+	opacity: 0.3;
 }
